@@ -1,0 +1,405 @@
+{
+	"info": {
+		"_postman_id": "59957244-247e-47a0-a60f-e5b8a6ff2aed",
+		"name": "Store API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49739017",
+		"_collection_link": "https://tisuunny-1973776.postman.co/workspace/Sana-T's-Workspace~69430ec0-4107-4fb1-86bf-a6e1fbab6ce7/collection/49739017-59957244-247e-47a0-a60f-e5b8a6ff2aed?action=share&source=collection_link&creator=49739017"
+	},
+	"item": [
+		{
+			"name": "products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time < 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{route}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{route}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/n",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has expected fields\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.have.property(\"id\");\r",
+							"    pm.expect(data).to.have.property(\"name\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{route}}/{{n}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{route}}",
+						"{{n}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Product created\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.name).to.eql(\"lettucennn\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"lettucennn\",\r\n    \"price\": 20,\r\n    \"sku\": 999921312423,\r\n    \"description\": \"Most lettuce varieties are eaten fresh and are commonly served as the base of green salads\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{route}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{route}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Product updated\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.name).to.eql(\"Updated Product\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 5,\r\n  \"name\": \"Updated Product\",\r\n  \"price\": 99\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{route}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{route}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let initialCount = pm.environment.get(\"initialProductCount\");\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: pm.variables.get(\"host\") + \"/products/\" + pm.variables.get(\"j\"),\r",
+							"    method: 'GET'\r",
+							"}, function (err, res) {\r",
+							"    pm.test(\"Deleted product cannot be retrieved\", function () {\r",
+							"        pm.expect(res).to.have.property(\"code\", 404);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{route}}/{{j}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{route}}",
+						"{{j}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Page size is correct\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.length).to.be.at.most(2); // because pageSize=2\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test Product\",\r\n  \"price\": 99\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/users?page=1&pageSize=2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sorting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is sorted by firstName ASC (JS Unicode order, ignore undefined)\", function () {\r",
+							"    const data = pm.response.json().filter(u => u.firstName);\r",
+							"    for (let i = 1; i < data.length; i++) {\r",
+							"        pm.expect(data[i].firstName >= data[i-1].firstName).to.be.true;\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test Product\",\r\n  \"price\": 42\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{host}}/users?sortOrder=ASC&sortKey=firstName",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "sortOrder",
+							"value": "ASC"
+						},
+						{
+							"key": "sortKey",
+							"value": "firstName"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": ""
+		},
+		{
+			"key": "route",
+			"value": ""
+		},
+		{
+			"key": "route",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "n",
+			"value": ""
+		},
+		{
+			"key": "j",
+			"value": ""
+		},
+		{
+			"value": ""
+		}
+	]
+}
