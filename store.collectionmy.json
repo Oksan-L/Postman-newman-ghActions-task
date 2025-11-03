@@ -49,6 +49,55 @@
 			"response": []
 		},
 		{
+			"name": "JSON Schema Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response matches product schema\", function () {\r",
+							"    const schema = {\r",
+							"        \"type\": \"array\",\r",
+							"        \"items\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"id\": { \"type\": [\"integer\", \"number\"] },\r",
+							"                \"name\": { \"type\": \"string\" },\r",
+							"                \"price\": { \"type\": [\"integer\", \"number\"] },\r",
+							"                \"sku\": { \"type\": [\"integer\", \"number\"], \"optional\": true },\r",
+							"                \"description\": { \"type\": \"string\", \"optional\": true }\r",
+							"            },\r",
+							"            \"required\": [\"id\", \"name\", \"price\"]\r",
+							"        }\r",
+							"    };\r",
+							"\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(tv4.validate(jsonData, schema), tv4.error).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{route}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{route}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "products/n",
 			"event": [
 				{
@@ -169,7 +218,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": 5,\r\n  \"name\": \"Updated Product\",\r\n  \"price\": 99\r\n}\r\n",
+					"raw": "{\r\n  \"id\": 3,\r\n  \"name\": \"Updated Product\",\r\n  \"price\": 99\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -350,6 +399,82 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let orders = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(orders)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"function getRandomOrders(arr, count) {\r",
+							"    let shuffled = arr.slice().sort(() => 0.5 - Math.random());\r",
+							"    return shuffled.slice(0, Math.min(count, arr.length));\r",
+							"}\r",
+							"\r",
+							"let randomOrders = getRandomOrders(orders, 3);\r",
+							"\r",
+							"randomOrders.forEach(order => {\r",
+							"    pm.test(`Random order ${order.id} has required fields`, function () {\r",
+							"        pm.expect(order).to.have.property(\"id\");\r",
+							"        pm.expect(order).to.have.property(\"name\");\r",
+							"        pm.expect(order).to.have.property(\"sku\");\r",
+							"\r",
+							"        pm.expect(order.id).to.be.a(\"number\");\r",
+							"        pm.expect(order.name).to.be.a(\"string\");\r",
+							"        pm.expect(order.sku).to.be.a(\"number\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All order IDs are unique\", function () {\r",
+							"    const ids = orders.map(o => o.id);\r",
+							"    const uniqueIds = [...new Set(ids)];\r",
+							"    pm.expect(uniqueIds.length).to.eql(ids.length);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/orders",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -396,9 +521,6 @@
 		},
 		{
 			"key": "j",
-			"value": ""
-		},
-		{
 			"value": ""
 		}
 	]

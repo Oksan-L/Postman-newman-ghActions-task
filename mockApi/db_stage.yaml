@@ -6,93 +6,17 @@ products:
     description: Most lettuce varieties are eaten fresh and are commonly served as
       the base of green salads
   - id: 3
-    name: apple
-    price: 30
-    sku: 999921312423312
-    description: awesome
-  - id: 5
     name: Updated Product
     price: 99
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 6
-    name: lettuce
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 7
-    name: lettuce
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 8
+    sku: 999921312423312
+    description: awesome
+  - id: 4
     name: lettucennn
     price: 20
     sku: 999921312423
     description: Most lettuce varieties are eaten fresh and are commonly served as
       the base of green salads
-  - id: 9
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 10
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 10
-    name: lettuce
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 11
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 12
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 13
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 14
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - name: orange
-    price: 8
-    sku: 123321123
-    description: wouh
-    id: 15
-  - name: orange
-    price: 8
-    sku: 123321123
-    description: wouh
-    id: 15
-  - id: 16
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - id: 17
+  - id: 4
     name: lettucennn
     price: 20
     sku: 999921312423
@@ -109,6 +33,15 @@ orders:
     name: order2
     sku: 999921312423312
 users:
+  - id: 1
+    firstName: Alice
+    lastName: Smith
+    email: alice.smith@gmail.com
+    dateOfBirth: 1997-10-31
+    emailVerified: true
+    signUpDate: 2019-08-24
+    status: active
+    level: admin
   - id: 2
     firstName: Bob
     lastName: Smith
@@ -145,8 +78,6 @@ users:
     signUpDate: 2019-08-24
     status: active
     level: consumer
-    name: Updated Product
-    price: 99
   - id: 6
     firstName: naruto
     lastName: Smith
@@ -183,27 +114,3 @@ users:
     signUpDate: 2019-08-24
     status: active
     level: consumer
-  - id: 11
-    name: lettucennn
-    price: 20
-    sku: 999921312423
-    description: Most lettuce varieties are eaten fresh and are commonly served as
-      the base of green salads
-  - firstName: Dream
-    lastName: Real
-    email: dream.real@gmail.com
-    dateOfBirth: 2001-10-99
-    emailVerified: true
-    signUpDate: 2019-08-24
-    status: active
-    level: lord
-    id: 11
-  - firstName: Dream
-    lastName: Real
-    email: dream.real@gmail.com
-    dateOfBirth: 2001-10-99
-    emailVerified: true
-    signUpDate: 2019-08-24
-    status: active
-    level: lord
-    id: 11
