@@ -4,16 +4,19 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   newman:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -37,14 +40,14 @@ jobs:
 
       - name: Commit Newman report if exists
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           if [ -f reports/report.html ]; then
             git add reports/report.html
             git commit -m "Add Newman HTML report" || echo "No changes to commit"
-            git push https://$GH_PAT@github.com/Oksan-L/Postman-newman-ghActions-task.git main
+            git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           else
             echo "No report to commit"
           fi
