@@ -18,7 +18,9 @@ jobs:
           node-version: '18'
 
       - name: Install Newman
-        run: npm install -g newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-html
 
       - name: Create reports folder
         run: mkdir -p reports
@@ -27,7 +29,7 @@ jobs:
         run: |
           npx yaml-server --hotReload=off --autoStart=off --port 3000 --database ./mockApi/db_stage.yaml &
           echo "Waiting for server to start..."
-          sleep 2
+          sleep 5
 
       - name: Run Postman collection
         run: |
@@ -43,3 +45,4 @@ jobs:
             git push
           else
             echo "No report to commit"
+          fi
